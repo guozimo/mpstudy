@@ -1,0 +1,113 @@
+<style lang="less">
+.recoverGoods {
+  overflow: hidden;
+  background-color: #ffffff;
+  padding: 50rpx 20rpx;
+  .goods {
+    overflow: hidden;
+    .goods-info {
+      padding-left: 26rpx;
+    }
+  }
+  .goods-img {
+    width: 150rpx;
+    height: 160rpx;
+    padding: 8rpx;
+    border: 2px solid #f1f1f1;
+    float: left;
+  }
+  .goods-info {
+    float: left;
+  }
+  .test {
+    font-size: 36rpx;
+    color: #1d1d1b;
+  }
+  .tag {
+    padding-top: 12rpx;
+    font-size: 28rpx;
+    color: #2f3134;
+  }
+  .parts {
+    padding-top: 16rpx;
+    font-size: 24rpx;
+    color: #898989;
+    width:122px;
+    .partsname {
+      padding-left: 80rpx;
+      max-width: 410rpx;
+    }
+  }
+  .condition {
+    padding-top: 8rpx;
+    font-size: 24rpx;
+    color: #898989;
+    .conditionname {
+      max-width: 410rpx;
+      padding-left: 80rpx;
+    }
+  }
+  .fontcustur {
+    float: left;
+    width: 84rpx;
+  }
+}
+</style>
+<template>
+  <view class="recoverGoods">
+    <view class="goods" goods="bbj">
+      <image src="{{dataItem.imgurl}}" class="goods-img" @tap='send({{dataItem}})'></image>
+      <view class="goods-info">
+        <view class="test">{{ dataItem.brand }}</view>
+        <view class="tag">{{ dataItem.model }}</view>
+        <view class="parts">
+          <view class="fontcustur">酒店：</view>
+          <view class="partsname">{{ dataItem.parts }}</view>
+        </view>
+        <view class="condition">
+          <view class="fontcustur">总价：</view>
+          <view class="conditionname">{{ dataItem.condition }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Indexbanner from './aa'
+export default class RecoverGoods extends wepy.component {
+  props = {
+     dataItem: {
+        type: Object,
+        default: 'nothing',
+        twoWay: true
+        //双工通讯
+    }
+  }
+  components={
+    demo:Indexbanner
+  }
+  computed = {
+    bbj() {
+      // console.log(this.dataItem)
+    }
+  }
+  methods = {
+    show(res){
+      console.log('res===>',res)
+      console.log(`调用子组件的方法输出:${res.title}`)
+    },
+    send(dataItem){
+      // console.log('dataItem子组件中===>', dataItem)
+		// this.$emit('my-event', dataItem)
+		}
+  }
+  onLoad() {
+    //  const a = this.$getComponent('demo')
+    // console.log('a===', a)
+
+     this.$invoke('demo', 'haha')
+  }
+}
+</script>

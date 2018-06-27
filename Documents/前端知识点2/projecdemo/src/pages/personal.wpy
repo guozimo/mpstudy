@@ -1,0 +1,254 @@
+<style lang="less">
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userinfo-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+.personal {
+  overflow: hidden;
+  width: 100%;
+  .navList {
+    padding: 40rpx 60rpx;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    .list-bar {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .list_icon {
+        width: 100rpx;
+        height: 100rpx;
+      }
+      .item-font {
+        font-size: 28rpx;
+        color: #898989;
+      }
+    }
+    .list-bar:nth-child(2) {
+      border-left: 1px solid #f1f1f1;
+      border-right: 1px solid #f1f1f1;
+      padding: 0rpx 70rpx;
+    }
+  }
+  .feedback-list {
+    overflow: hidden;
+    margin-bottom: 50rpx;
+    .list-bar {
+      overflow: hidden;
+      background-color: #ffffff;
+      margin-top: 8rpx;
+      padding: 40rpx;
+      position: relative;
+    }
+    .list_icon {
+      width: 48rpx;
+      height: 48rpx;
+      position: absolute;
+      left: 40rpx;
+    }
+    .item-font {
+      font-size: 36rpx;
+      color: #898989;
+      padding-left: 60rpx;
+      display: inline-block;
+    }
+    .row_icon {
+      width: 48rpx;
+      height: 48rpx;
+      position: absolute;
+      right: 40rpx;
+      top: 40rpx;
+    }
+    .phone-num {
+      display: inline-block;
+      text-align: right;
+      float: right;
+      padding-right: 80rpx;
+    }
+  }
+}
+
+.login_box{
+width:80%;
+.exit_login{
+text-align:center;
+height:76rpx;
+background:#ffffff;
+line-height:76rpx;
+color:lightblue;
+border-radius:4px;
+border:1px solid lightblue;
+font-size:14px;
+}
+}
+
+</style>
+<template>
+  <scroll-view scroll-y="true" class="srollBox">
+    <view class="container">
+     <view class="userinfo" @tap="handleViewTap">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
+      <view class="userinfo-nickname">{{ userInfo.nickName }}</view>
+       </view>
+      <view class="personal">
+        <view class="navList">
+          <repeat for="{{navList}}" index="index" item="item" key="index">
+            <view class="list-bar" @tap="headleClick({{ item.link }})">
+              <image class="list_icon" src="{{ item.img_icon }}"></image>
+              <view class="item-font">{{ item.title }}</view>
+            </view>
+          </repeat>
+        </view>
+        <view class="feedback-list">
+          <repeat for="{{feedback}}" index="index" item="line" key="index">
+            <view class="list-bar" @tap="bodyClick({{ line.pageUrl }})">
+              <image class="list_icon" src="{{ line.icon }}"></image>
+              <view class="item-font">{{ line.title }}</view>
+              <image class="row_icon" src="../images/chevron-right.svg"></image>
+            </view>
+          </repeat>
+          <view class="list-bar" @tap="phoneCall">
+            <view class="item-font">服务热线</view>
+            <view class="phone-num">400-606-3001</view>
+            <image class="row_icon" src="../images/chevron-right.svg"></image>
+          </view>
+        </view>
+      </view>
+       <view class="login_box">
+        <button class='exit_login' @tap='exit'>退出登录</button>
+          </view>
+    </view>
+  </scroll-view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Personal extends wepy.page {
+  config = {
+    navigationBarTitleText: '个人中心'
+  }
+  data = {
+    userInfo: {
+      nickName: '加载中...'
+    },
+    navList: [
+      {
+        link: '../pages/mycar',
+        img_icon: '../images/mine_mycar.svg',
+        title: '购物车'
+      },
+      {
+        link: '../pages/recycleOrder',
+        img_icon: '../images/mine_bills.svg',
+        title: '全部订单'
+      },
+      {
+        link: '../pages/myaccount',
+        img_icon: '../images/mine_account.png',
+        title: '我的账户'
+      }
+    ],
+    feedback: [
+      {
+        title: '反馈意见',
+        pageUrl: '../pages/opinion'
+      },
+      {
+        title: '常见问题',
+        pageUrl: '../pages/problem'
+      },
+      {
+        title: '关于我们',
+        pageUrl: '../pages/aboutUs'
+      }
+    ]
+  }
+
+  components = {
+  }
+
+  methods = {
+    headleClick(url) {
+      // 做跳转路由的操作
+      wepy.navigateTo({
+        url: `${url}`
+      })
+    },
+    bodyClick(url) {
+      wepy.navigateTo({
+        url: `${url}`
+      })
+    },
+    phoneCall() {
+      wepy.makePhoneCall({
+        phoneNumber: '400-606-3001'
+      })
+    },
+    exit() {
+      // 使用弹框
+      let that=this
+      wx.showModal({
+    title: '提示',
+    content: '确认退出登录么',
+    success: function (res) {
+            if (res.confirm) {
+                console.log('用户点击确定')
+                    // 发送退出登录的请求 返回之后 前端将无登录状态信息展示  mock
+                that.userInfo.avatarUrl='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519968304159&di=2fcadd0d78c71767a7260837f919e465&imgtype=0&src=http%3A%2F%2Fwww.qqzhi.com%2Fuploadpic%2F2014-09-28%2F115349111.jpg';
+                that.userInfo.nickName='授权登录'
+                that.$apply()
+                } else {
+                console.log('用户点击取消')
+                }
+
+            }
+      })
+    },
+    handleViewTap(){
+      if (this.userInfo.nickName==='授权登录'){
+        this.onLoad()
+      }
+    }
+  }
+  // onLoad() {
+  //   let self = this
+  //   wepy.getUserInfo({
+  //     success: function (params) {
+  //       console.log(params)
+  //       if (params.userInfo) {
+  //         self.userInfo = params.userInfo
+  //         self.$broadcast('set-userInfo', params.userInfo)
+  //         self.$apply()
+  //       }
+  //     }
+  //   })
+  // }
+  async onLoad() {
+    await wepy.login();
+    let self = this
+    await wepy.getUserInfo({
+       success: function (params) {
+         console.log(params)
+        if (params.userInfo) {
+           self.userInfo = params.userInfo
+        self.$broadcast('set-userInfo', params.userInfo)
+           self.$apply()
+         }
+       }
+     })
+}
+
+}
+</script>

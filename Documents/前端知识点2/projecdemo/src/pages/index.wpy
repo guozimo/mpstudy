@@ -1,0 +1,34 @@
+<style lang="less">
+  .srollBox{
+    overflow: hidden;
+    position:absolute;
+    .container{
+      background-color: #f7f7f7;
+    }
+  }
+  
+   .container{
+     font-family:"Microsoft Yahei";
+   } 
+</style>
+<template>
+<scroll-view scroll-y="true" class="srollBox">
+  <view class="container">   
+  <banner></banner>
+  </view>
+</scroll-view>  
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Indexbanner from '../components/index_component/indexbanner'
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '首页'
+    }
+
+    components = {
+     banner: Indexbanner,
+    }
+  }
+</script>

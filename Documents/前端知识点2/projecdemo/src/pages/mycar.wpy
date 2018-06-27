@@ -1,0 +1,130 @@
+<style lang="less">
+.myidle {
+  width: 100%;
+  overflow: hidden;
+  .myidle-box{
+    overflow: hidden;
+    margin-top: 16rpx;
+    .recoverPage{
+      background-color: #ffffff;
+      color:#474647;
+      font-size: 30rpx;
+      text-align: right;
+      padding: 24rpx 50rpx;
+      margin-bottom: 4rpx;
+    }
+  }
+}
+</style>
+<template>
+  <scroll-view scroll-y="true" class="srollBox">
+    <view class="container">
+      <view class="myidle">
+        <repeat for="{{idleList}}" index="index" item="item" key="index">
+          <view class="myidle-box">
+            <view class="recoverPage" @tap="toast({{ item.id }})">订单</view>
+            <recoverGoods :dataItem="item" @my-event.user='myevent'></recoverGoods>
+          </view>
+        </repeat>
+      </view>
+    </view>
+  </scroll-view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import RecoverGoods from '../components/recoverGoods/recoverGoods'
+export default class Myidle extends wepy.page {
+  config = {
+    navigationBarTitleText: '我的旅行'
+  }
+  data = {
+    msg:{},
+    idleList: [
+      {
+        id: 3211,
+        imgurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519973041299&di=297070e63097382de9539dc786f768f3&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F58ee3d6d55fbb2fbb204568f454a20a44623dc04.jpg',
+        brand: '国内线路',
+        model: '北戴河两日游',
+        size: '豪华海景房',
+        parts: '豪华海鲜套餐',
+        condition: '￥2522'
+      },
+      {
+        id: 32423,
+        imgurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519973127361&di=4b73865bb0c516024f41cf8305ffcbab&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fbd3eb13533fa828bc123972af71f4134960a5af2.jpg',
+        brand: '国外线路',
+        model: '马尔代夫七日游',
+        size: '豪华游艇',
+        parts: '豪华总统套房',
+        condition: '￥28000'
+      },
+      {
+        id: 32424,
+        imgurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519973161170&di=2f5e68a76a46f84f6661c5e3892c6961&imgtype=0&src=http%3A%2F%2Fwww.ausproperty.cn%2Fuploads%2F130515%2F7402-130515162220D7.jpg',
+        brand: '国外线路',
+        model: '澳大利亚七日游',
+        size: '悉尼歌剧院套票',
+        parts: '豪华总统套房',
+        condition: '￥58000'
+      },
+      {
+        id: 32425,
+        imgurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519973194198&di=75ed42d510bd96443d7406f39f0fe4b5&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3D3e81255bf3198618554ae7c423954b1f%2F8b13632762d0f7031c1535e603fa513d2697c561.jpg',
+        brand: '国内线路',
+        model: '港澳游',
+        size: '迪士尼乐园套票',
+        parts: '五星酒店',
+        condition: '￥38000'
+      },
+      {
+        id: 32426,
+        imgurl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519973226257&di=af9836cdaacd398628efbfa543018673&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimage%2Fc0%253Dpixel_huitu%252C0%252C0%252C294%252C40%2Fsign%3D52ddd5e425738bd4d02cba71c8f3e2ba%2Fa1ec08fa513d2697d187a2645efbb2fb4316d8b7.jpg',
+        brand: '国内线路',
+        model: '广西桂林山水游',
+        size: '苗族山寨6+往返机票',
+        parts: '苗族寨居',
+        condition: '￥8000'
+      }
+    ]
+  }
+  methods = {
+    register(id) {
+       wepy.navigateTo({
+        url: `../pages/register?id=${id}`
+      })
+    },
+    myevent(...msg){
+      // Object.values('hello')   [...'hello']  Array.from('hello')
+      //子传递数据到父组件 msg是传递过来的值
+      console.log('传入到父组件的数据===>',msg[0]);
+      this.msg=msg[0];
+      console.log('对子组件传递来的数据赋值给父组件的data',this.msg);
+    //  console.log('event==>',event)
+    //   console.log('msg==>',...msg)
+    },
+    //在这个组件中调用
+     toast (id) {
+       console.log(id);
+        // let promise = this.$invoke('recoverGoods', 'show', {
+        //   title: id
+        // })
+      },
+  }
+  events = {
+      'my-event': (...args) => {
+        let $event = args[args.length - 1];
+      console.log('args===>',args[0]);
+      console.log('events==>',$event);
+      }
+    }
+    onLoad() {
+      let promise = this.$invoke('recoverGoods', 'show', {
+        title: 'text222'
+      })
+    }
+  components = {
+     recoverGoods:RecoverGoods
+  }
+}
+</script>
