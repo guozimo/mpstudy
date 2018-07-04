@@ -1,0 +1,62 @@
+
+<template>
+  <view class="login">
+    <input placeholder="请输入账号或者邮箱" auto-focus   class="account"/>
+    <input password type="text" placeholder="请输入密码" class="password"/>
+    <view class="regester">没有账号？立即注册</view>
+    <button class="login_btn">登陆</button>
+  </view>
+
+</template>
+<script>
+  import wepy from 'wepy'
+  export default class login extends wepy.page {
+    onShareAppMessage() {
+      return {
+        title: '我发现了一个刷题利器, 这次考过就靠它了!',
+        imageUrl: this.$parent.globalData.imageUrl + '/image/share_common.jpg?_=999',
+        path: `/pages/homePage/homePage`
+      };
+    }
+    config = {
+      navigationBarTitleText: 'csdn'
+    };
+    data = {
+
+    }
+    components = {
+    }
+    methods = {
+
+    }
+    async getData() {
+
+    }
+    animationShow() {
+
+    }
+    async onShow() {
+
+    }
+    computed = {
+      imageUrl() {
+        return this.$root.$parent.globalData.imageUrl;
+      }
+    }
+    async onLoad(option) {
+
+    }
+    onHide() {
+    }
+    onUnload() {
+    }
+    events = {
+      'closeActive'() {
+      }
+    }
+  }
+</script>
+
+<style lang="less" src="login.less" scoped>
+
+</style>

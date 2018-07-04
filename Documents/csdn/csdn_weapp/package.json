@@ -1,0 +1,56 @@
+{
+  "name": "mp-csdn",
+  "version": "0.0.2",
+  "description": "csdn小程序项目",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "wepy build --watch",
+    "build": "cross-env NODE_ENV=production wepy build --no-cache && npm run clear",
+    "dev:web": "wepy build --output web",
+    "clean": "find ./dist -maxdepth 1 -not -name 'project.config.json' -not -name 'dist' | xargs rm -rf",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "qa": "NODE_ENV=qa wepy build --no-cache",
+    "clear":"rimraf dist/images"
+  },
+  "wepy": {
+    "module-a": false,
+    "./src/components/list": "./src/components/wepy-list.wpy"
+  },
+  "author": "guozimo",
+  "license": "MIT",
+  "dependencies": {
+    "pubsub-js": "^1.6.0",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-promise": "^0.5.3",
+    "wepy": "^1.6.0",
+    "wepy-async-function": "^1.4.4",
+    "wepy-com-toast": "^1.0.2",
+    "wepy-redux": "^1.5.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-node-env-inline": "^0.4.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.3",
+    "eslint": "^3.18.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-friendly-formatter": "^2.0.7",
+    "eslint-plugin-html": "^2.0.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
+    "rimraf": "^2.6.2",
+    "wepy-compiler-babel": "^1.5.1",
+    "wepy-compiler-less": "^1.3.10",
+    "wepy-eslint": "^1.5.3",
+    "wepy-plugin-imagemin": "^1.5.3",
+    "wepy-plugin-replace": "^1.5.10",
+    "wepy-plugin-uglifyjs": "^1.3.7"
+  }
+}

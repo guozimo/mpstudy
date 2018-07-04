@@ -1,0 +1,145 @@
+<template>
+  <view class="test_library_footer" style="height:{{footerHeight}}rpx">
+    <view class="test_library">
+      <view class="test_library_tap" @tap="toTestLibrary">
+        <!--<image wx:if="{{imageUrl}}" src="{{testLibraryUrl}}?_=1233" class="icon library_icon"></image>-->
+        <text class="{{isColor ? 'library_tip' : 'tip'}}">TA的</text>
+      </view>
+    </view>
+
+    <view class="test_library">
+      <view class="test_library_tap" @tap="toMine">
+        <!--<image wx:if="{{imageUrl}}?_=123333" src="{{mineUrl}}" class="icon niuIcon library_icon"></image>-->
+        <text class="{{mineColor ? 'mine_tip' : 'tip'}}">我的</text>
+      </view>
+    </view>
+  </view>
+</template>
+<script>
+  // import api from '@/api'
+  import wepy from 'wepy'
+  import api from '@/api'
+  export default class Panel extends wepy.component {
+    props = {
+      isColor: Boolean,
+      mineUrl: String,
+      testLibraryUrl: String,
+      findUrl: String,
+      circleUrl: String,
+      findeColor: String,
+      circleColor: String,
+      mineColor: String,
+      footerHeight: Number
+    }
+    computed = {
+      imageUrl() {
+        return this.$root.$parent.globalData.imageUrl
+      }
+    }
+    toGodActivity() {
+      this.$emit('to_god_activity')
+    }
+    methods = {
+      toTestLibrary() {
+        this.$emit('to_test_library')
+      },
+      toMine() {
+        this.$emit('to_test_mine')
+      },
+      toMiniProgram() {
+        this.$emit('to_other_miniprogram')
+        this.$parent.$wxapp.aldstat.sendEvent('首页圈子icon', '点击圈子icon跳转自考版小程序')
+      },
+      pushMsg(e) {
+        if (e.detail.formId) {
+          this.userPushMessage(e.detail.formId)
+        }
+        // const param = e.detail.target.id
+        this.toActiveList()
+      }
+    }
+    toActiveList() {
+      this.$emit('to_active_list')
+      this.$parent.$wxapp.aldstat.sendEvent('首页活动icon', '点击首页活动icon')
+    }
+    async userPushMessage(id) {
+      const isPushMessage = await api.pushMessage({
+        method: 'POST',
+        data: {
+          messageType: 'TEMP_FORM_ID',
+          formId: id
+        }
+      })
+      if (!isPushMessage) return
+      this.$apply()
+    }
+  }
+</script>
+<style lang="less">
+  .test_library_footer{
+    z-index: 1000;
+   //  height: 104rpx;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid #F1F1F1;
+    .test_library{
+      width: 50%;
+      height: 100%;
+      position: relative;
+      .test_library_tap{
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        position: relative;
+        .icon {
+          width: 50rpx;
+          height: 54rpx;
+        }
+        .niuIcon{
+          width: 54rpx;
+          height: 52rpx;
+        }
+        .tip {
+          color: #CACACA;
+        }
+        .library_tip{
+          color: #00D1CF;
+        }
+        .mine_tip{
+          color: #00D1CF;
+        }
+        .quan_tip{
+          color: #00D1CF;
+        }
+        .find_tip{
+          color: #00D1CF;
+        }
+      }
+      .fix_tap{
+        width: 116rpx;
+        height: 116rpx;
+        position: fixed;
+        bottom: 10rpx;
+        left: 50%;
+        margin-left: -56rpx;
+        .godIcon{
+          width: 116rpx;
+          height: 116rpx;
+          position: fixed;
+          bottom: 10rpx;
+          left: 50%;
+          margin-left: -56rpx;
+        }
+      }
+    }
+  }
+</style>

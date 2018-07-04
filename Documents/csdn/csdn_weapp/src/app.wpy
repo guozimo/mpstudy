@@ -1,0 +1,98 @@
+<style lang="less">
+  page {
+    height: 100%;
+    width: 100%;
+  }
+  view, text {
+    box-sizing: border-box;
+    font-size: 12px;
+    // font-family: "Microsoft Yahei";
+    font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light', arial, sans-serif;
+  }
+  scroll-view {
+    box-sizing: border-box;
+    font-family: "Microsoft Yahei";
+  }
+  .no-wrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+</style>
+<script>
+  // import aldstat from './utils/ald-stat.js'
+  const aldstat = require('./utils/ald-stat.js')
+  import wepy from 'wepy'
+  import 'wepy-async-function'
+  import api from '@/api'
+ // import { imageUrl } from '@/utils/config'
+  export default class extends wepy.app {
+    constructor() {
+      super()
+      this.use('promisify')
+      this.use('requestfix')
+      this.getUserMsg = this.getUserMsg.bind(this)
+    }
+    config = {
+      pages: [
+        'pages/homePage/homePage',
+        'pages/login/login'
+
+      ],
+      window: {
+        backgroundTextStyle: 'light',
+        navigationBarTitleText: 'csdn',
+        navigationBarTextStyle: 'black',
+        navigationBarBackgroundColor: '#ffffff'
+      },
+      debug: false
+    };
+    globalData = {
+      imageUrl: ''
+    };
+    onLaunch(data) {
+
+    }
+    onShow() {
+      /* eslint-disable no-console */
+      console.log(aldstat)
+    }
+
+    // 获取用户信息
+    async getUserMsg(option) {
+      // 走入onload进来之后 首先判断是否登陆过
+      const { code } = await wepy.login()
+     const userInfo =  wepy.getStorageSync('userInfo')
+      console.log('出来的code',code)
+      // 不走微信的授权逻辑 默认进来直接获取code 发送后端
+      // 如果存在 option 直接拿参数获取   点击按钮 用户同意授权传递iv 等信息
+      // if (option) {
+      //   this.getToken(Object.assign({ code }, option))
+      // } else {
+      //   this.getToken({ code })
+      // }
+      if (userInfo.length) {
+        // 如果本地存储有则走本地存储数据 否则走登陆的逻辑 登陆成功后从接口拿数据
+      } else {
+        this.getToken({ code })
+      }
+    }
+    async getToken(data) {
+      const { token,  login , userInfo } = await api.getToken({ data })
+      // login就当作是回来的数据
+      wepy.setStorageSync('Authorization', token)
+      if (userInfo.length) {
+        wepy.setStorageSync('userInfo', userInfo)
+      }
+      this.userInfoReadyCallback && this.userInfoReadyCallback(login, userInfo)
+    }
+  }
+</script>

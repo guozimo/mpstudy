@@ -1,0 +1,56 @@
+<template>
+  <view class="mine_container">
+  </view>
+</template>
+<script>
+import wepy from 'wepy'
+import {
+  imageUrl
+} from '@/utils/config'
+export default class Other extends wepy.component {
+  props = {
+    myInfo: Object,
+    nickName: String
+  }
+  components={
+  }
+  data = {
+    imageUrl: '',
+    isYellow: true,
+    itemList: [
+      { src: `${imageUrl}/image/testType.png`, type: '考试类型', className: 'typeIcon' },
+      { src: `${imageUrl}/image/collections.png`, type: '题目收藏', className: 'collectIcon' },
+      { src: `${imageUrl}/image/errorTests.png`, type: '我的错题', className: 'errorIcon' },
+      { src: `${imageUrl}/image/addgroup.png?_=11`, type: '加入学习交流群', className: 'addIcon' },
+      { src: `${imageUrl}/image/advices.png?_=13addgroup.png?_=11`, type: '意见反馈', className: 'adviceIcon' }
+    ],
+    myInfo: {},
+    maginTopNum: '26rpx'
+  };
+  computed = {
+    imageUrl() {
+      return this.$root.$parent.globalData.imageUrl
+    }
+  }
+  methods = {
+    toDetails(type) {
+      this.$emit('itemToDetail', type)
+    },
+    toMyCenter(type) {
+      this.$emit('toMyCenter')
+      this.$parent.$wxapp.aldstat.sendEvent('个人信息', {
+        '进入方式': type
+      })
+    },
+    toMyCenterData(type) {
+      this.$emit('toMyCenterData')
+      this.$parent.$wxapp.aldstat.sendEvent('个人信息', {
+        '进入方式': type
+      })
+    }
+  }
+}
+</script>
+<style lang="less" src="other.less">
+
+</style>

@@ -1,0 +1,132 @@
+
+<template>
+  <!--他人信息面板-->
+  <view class="home_other">
+    <home_other></home_other>
+  </view>
+  <!--下面展示个人中心的部分呢-->
+  <view class="home_mine">
+    <home_mine></home_mine>
+  </view>
+  <homePageBottom></homePageBottom>
+</template>
+<script>
+  import wepy from 'wepy'
+  import home_mine from '@/components/home_mine/mine'
+  import home_other from '@/components/home_other/other'
+  import homePageBottom from '@/components/homePageBottom'
+  export default class homePage extends wepy.page {
+    onShareAppMessage() {
+      return {
+        title: '',
+        imageUrl: this.$parent.globalData.imageUrl + '/image/share_common.jpg?_=999',
+        path: `/pages/homePage/homePage`
+      }
+    }
+    config = {
+      navigationBarTitleText: 'csdn'
+    }
+    data = {
+
+    }
+    components = {
+      homePageBottom,
+      home_mine,
+      home_other
+    }
+    methods = {
+      // 点击按钮进行授权操作的逻辑
+      getuserinfo(info) {
+        // 用户拒绝授权
+        if (info.detail.errMsg === 'getUserInfo:fail auth deny') return
+        const {
+          detail: {
+            encryptedData,
+            iv
+          }
+        } = info
+        this.$parent.getUserMsg({
+          encryptedData,
+          iv
+        })
+        // 用户点击授权通过之后给一个flag 代表已经授权确定了
+        this.hasRight = true
+      }
+    }
+    async getData() {
+
+    }
+    animationShow() {
+
+    }
+    async onShow() {
+      this.setTitle()
+    }
+    computed = {
+      imageUrl() {
+        return this.$root.$parent.globalData.imageUrl
+      }
+    }
+    async onLoad(option) {
+      this.hasToken = false
+      // onload之后首先先判断是否已经登陆过
+      this.$parent.getUserMsg()
+      // token的获取 以及告诉服务端是否授权的判断
+      // login 服务端碰撞成功返回true
+      this.route(option)
+    }
+    onHide() {
+    }
+    onUnload() {
+    }
+    // 页面跳转
+    route(option) {
+      // console.log('回来的option路由===', option)
+      if (!option.id) {
+        this.$parent.userInfoReadyCallback = async(login, userInfo) => {
+          if (login) {
+            // 如果通过code比较成功了 则直接登陆 否则走登陆逻辑 并且拿服务端数据
+            // 拿到userInfo做相应的页面渲染
+            this.$apply()
+          } else {
+            // 走登陆逻辑
+            wepy.redirectTo({
+              url: '../login/login'
+            })
+            this.$apply()
+          }
+          // 气泡进入的路径判断
+        }
+      } else {
+      }
+    }
+    setTitle(title) {
+      if (this.isShowMine) {
+        wepy.setNavigationBarTitle({
+          title: '我的'
+        })
+        wepy.setNavigationBarColor({
+          frontColor: '#ffffff',
+          backgroundColor: '#00D1CF'
+        })
+      } else {
+        wepy.setNavigationBarTitle({
+          title: 'TA的'
+        })
+        wepy.setNavigationBarColor({
+          frontColor: '#ffffff',
+          backgroundColor: '#00D1CF'
+        })
+      }
+    }
+
+    events = {
+      'closeActive'() {
+      }
+    }
+  }
+</script>
+
+<style lang="less" src="homePage.less" scoped>
+
+</style>

@@ -1,0 +1,15 @@
+{
+	"description": "csdn小程序项目",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"appid": "touristappid",
+	"projectname": "mp-csdn",
+	"miniprogramRoot": "./dist",
+	"condition": {}
+}
