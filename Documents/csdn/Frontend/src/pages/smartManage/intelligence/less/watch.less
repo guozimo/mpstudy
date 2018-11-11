@@ -1,0 +1,248 @@
+.watch-box{
+  flex: 1;
+  position: relative;
+  #watch-box{
+    height: 100%;
+  }
+}
+.search-bar{
+  position: absolute;
+  top: 21px;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  .search1,
+  .search2{
+    // opacity: 0.8;
+    // background: #FFFFFF;
+    // box-shadow: 0 0 5px 2px rgba(0,0,0,0.09);
+    font-size: 12px;
+    color: #333333;
+
+    // border-radius: 4px;
+    display: flex;
+  }
+  .search2{
+    margin-left: 16px;
+    padding-top: 6px;
+    .driver-task{
+      height: 100%;
+      border-right: 1px solid #000;
+    }
+  }
+  .manage-area,
+  .warehouse,
+  .yuji,
+  .car-type{
+    margin: 6px 0;
+    border-right: 1px solid #000;
+  }
+  .car-type{
+    border-right: none;
+  }
+}
+.total-box{
+  position: absolute;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+  .total-bar{
+    height: 40px;
+    background-color: #001A2D;
+    .switch{
+      background: url('../images/watch-sprite.png') no-repeat;
+      width: 13px;
+      height: 12px;
+      display: inline-block;
+      margin: 14px 27px;
+      vertical-align: middle;
+      cursor: pointer;
+      &.close {
+        background-position:  -337px -19px;
+      }
+      &.open {
+        background-position: -337px -43px;
+      }
+    }
+    .count-text{
+      color: #909192;
+      font-size: 12px;
+      margin-left: 30px;
+      vertical-align: middle;
+    }
+    .count{
+      display: inline-block;
+      color: #fff;
+      font-size: 18px;
+      margin-left: 10px;
+      cursor: pointer;
+      vertical-align: middle;
+      transition: transform .3s;
+      &.lighter {
+          transform: scale(1.4);
+      }
+      &.all{
+        color: #4758CD;
+      }
+      &.moving{
+        color: #50C67C;
+      }
+      &.stop{
+        color: #B90914;
+      }
+      &.out{
+        color: #CACCCD;
+      }
+    }
+    .info-box{
+      display: inline-block;
+      position: relative;
+      .info{
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        vertical-align: middle;
+        text-align: center;
+        display: inline-block;
+        color: #fff;
+        font-size: 12px;
+        margin-left: 20px;
+        cursor: pointer;
+      }
+      .info-pop{
+        position: absolute;
+        // width: 196px;
+        height: 170px;
+        transform: translate(-70px, -100%);
+      }
+    }
+    .search-out {
+        position: absolute;
+        right: 57px;
+        top: 14px;
+        font-size: 12px;
+        color: #909192;
+        width: 32px;
+        cursor: pointer;
+    }
+    .open-close{
+      position: absolute;
+      right: 27px;
+      top: 14px;
+      background: url('../images/watch-sprite.png') no-repeat -394px -18px;
+      width: 12px;
+      // height: 12px;
+      cursor: pointer;
+      &.open{
+        height: 12px;
+      }
+      &.close{
+        height: 3px;
+        &:after{
+          content: '';
+          display: inline-block;
+          height: 12px;
+          width: 12px;
+        }
+      }
+    }
+  }
+  .car-data{
+    overflow: auto;
+    background-color: #fff;
+    font-size: 12px;
+    transition: height .5s;
+    &.close{
+      height: 0px;
+    }
+    &.open{
+      height: 225px;
+    }
+    table{
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th,td{
+      height: 25px;
+      padding: 0 10px;
+      border: 1px solid #eee;
+    }
+    thead th{
+      background: #F6F6F6;
+      font-size: 12px;
+      color: #333333;
+    }
+    .view-detail{
+      color: #36ABE7;
+    }
+    .pager{
+      text-align: center;
+      margin: 10px 0;
+    }
+  }
+}
+.driver-menu{
+  width: 190px;
+  position: absolute;
+  top: 10px;
+  bottom: 61px;
+  z-index: 999;
+  transition: all .5s;
+  &.close{
+    transform: translate(-190px,0);
+  }
+  &.open{
+    transform: translate(0,0);
+  }
+}
+.tool-bar{
+  width: 36px;
+  height: 138px;
+  opacity: 0.8;
+  background: #FFFFFF;
+  border-radius: 4px;
+  position: absolute;
+  top: 21px;
+  right: 28px;
+  display: flex;
+  flex-direction: column;
+  span{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bg,
+  .select{
+    border-bottom: 1px solid #C9C8C8;
+  }
+  .icon-bg{
+    background: url('../images/watch-sprite.png') no-repeat -60px -7px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    &.normal-map {
+        background: url('../images/watch-sprite.png') no-repeat -10px -88px;
+    }
+  }
+  .icon-select{
+    background: url('../images/watch-sprite.png') no-repeat -96px -8px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    &.polygon-on {
+        background: url('../images/watch-sprite.png') no-repeat -46px -89px;
+    }
+  }
+  .icon-distance{
+    background: url('../images/watch-sprite.png') no-repeat -130px -7px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    &.distance-on {
+        background: url('../images/watch-sprite.png') no-repeat -80px -88px;
+    }
+  }
+}
