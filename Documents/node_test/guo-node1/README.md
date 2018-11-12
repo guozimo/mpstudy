@@ -1,6 +1,6 @@
 # so.csdn.net
 
-> A node.js project（engine esj）
+> A node.js project（engine ejs）
 
 ## Build Setup
 
