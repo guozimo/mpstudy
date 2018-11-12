@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const search = require('../../controller/index')
+const search = require('../controllers/index')
 // 默认一级路由是/ router.prefix('/')
 
 // 首页路由 / https://so.csdn.net/so/
