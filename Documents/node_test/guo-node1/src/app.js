@@ -8,7 +8,7 @@ const bodyparser = require('koa-bodyparser')
 
 const config = require('../config')
 const logUtil = require('./utils/logUtil')
-const { responseFormatter } = require('./middlewares')
+// const { responseFormatter } = require('./middlewares')
 
 const index = require('./routes/index')
 const users = require('./routes/users')

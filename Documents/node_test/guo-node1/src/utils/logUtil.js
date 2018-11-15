@@ -60,19 +60,19 @@ const formatRes = (ctx, resTime) => {
   let logText = ''
 
   // 响应日志开始
-  logText += '\n' + '*************** response log start ***************' + '\n'
-
-  // 添加请求日志
-  logText += formatReqLog(ctx.request, resTime)
-
-  // 响应状态码
-  logText += `response status: ${ctx.status}\n`
-
-  // 响应内容
-  logText += `${'response body: ' + '\n'}${JSON.stringify(ctx.body)}\n`
-
-  // 响应日志结束
-  logText += '*************** response log end ***************' + '\n'
+  // logText += '\n' + '*************** response log start ***************' + '\n'
+  //
+  // // 添加请求日志
+  // logText += formatReqLog(ctx.request, resTime)
+  //
+  // // 响应状态码
+  // logText += `response status: ${ctx.status}\n`
+  //
+  // // 响应内容
+  // logText += `${'response body: ' + '\n'}${JSON.stringify(ctx.body)}\n`
+  //
+  // // 响应日志结束
+  // logText += '*************** response log end ***************' + '\n'
 
   return logText
 }
