@@ -26,6 +26,17 @@
 </head>
 
 <body>
+<ul>
+  <% for(var i = 0 ; i < dataList.length ; i++){ %>
+  <li>
+        <a target="_blank" href="/user/<%= dataList[i].linkUrl %>">
+      <p> <%= dataList[i].title %></p>
+      <p> <%= dataList[i].abstract %></p>
+    </a>
+  </li>
+
+  <% } %>
+</ul>
 
 <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript" ></script>
 <script id="toolbar-tpl-scriptId"  prod="" skin="black" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" domain="//so.csdn.net/so/" type="text/javascript"></script>

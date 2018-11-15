@@ -6,25 +6,14 @@
  */
 // exports.Demo = require('./demo')
 var http = require('http')
+const request = require('request-promise-native')
 exports.getArticleList = async (ctx, next) => {
-  // await
-  // ctx.body = ret
-  // console.log('进入s.do===')
-  // console.log('ctx======',ctx)
 // 如果请求数据为空 展示空404页面 否则展示请求回数据的页面
-  http.get('http://loc-i.csdn.net:3000/json', function (response) {
-    // console.log('进入请求中', response)
-    var rawContent = response
-    response.on('data', function (chunk) {
-      rawContent += chunk.toString()
-    })
-
-    response.on('end', function () {
-      res.send(rawContent)
-    })
+  let res = await request('http://loc-i.csdn.net:3000/json')
+  const newData = JSON.parse(res)
+  console.log(newData.item, 'newData', typeof (newData.item))
+  await ctx.render('answer', {
+    title: '',
+    dataList: newData.item
   })
-  // console.log('ctx.query',ctx.query)
-  // await ctx.render('answer', {
-  //   title: ''
-  // })
 }
