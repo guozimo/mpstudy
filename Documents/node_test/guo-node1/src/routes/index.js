@@ -27,6 +27,10 @@ router.get('/json', async (ctx, next) => {
   ctx.body = jsonData
   // console.log('外层读取到ctx===', ctx.body)
 })
+router.get('/404', async (ctx, next) => {
+  await ctx.render('404', {
+  })
+})
 // 数据获取回来再render页面 去controller中进行操作 搜索跳转路由 相当于跳转过来
 router.get('/so/search/s.do', search.getArticleList)
 // router.url('/so/search/s.do', { query: 'q=1' })
